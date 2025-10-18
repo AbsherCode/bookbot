@@ -1,0 +1,2 @@
+# Ignore the entire books directory as it contains large data files
+/books
