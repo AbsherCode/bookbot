@@ -1,4 +1,4 @@
-
+from stats import get_num_words, get_char_counts, sort_char_counts
 
 def get_book_text(filepath):
     """
@@ -21,38 +21,40 @@ def get_book_text(filepath):
         print(f"An unexpected error occurred while reading the file: {e}")
         return ""
 
-def get_num_words(text):
-    """
-    Counts and returns the number of words in a given text string.
-
-    Args:
-        text (str): The text content of the book.
-
-    Returns:
-        int: The total count of words.
-    """
-    # The split() method splits the string by whitespace and returns a list of words.
-    words = text.split()
-    return len(words)
 
 def main():
-    """
-    The main function to demonstrate reading and printing the book content.
-    """
-    # Use the relative path to the Frankenstein book file
+   
     book_path = "books/frankenstein.txt"
-    
-    # print(f"--- Attempting to read book from: {book_path} ---")
-    
-    # Get the contents of the book
     text = get_book_text(book_path)
 
     if text:
-        # Get the number of words
+        
         num_words = get_num_words(text)
+        char_counts_dict = get_char_counts(text)
+        sorted_chars_list = sort_char_counts(char_counts_dict)
+        
+        # --- Print Report ---
+        
+        print("============ BOOKBOT ============")
+        print(f"Analyzing book found at {book_path}...")
 
-        # Print the required output with the word count
+        # Word Count Section
+        print("----------- Word Count ----------")
         print(f"Found {num_words} total words")
+
+        # Character Count Section
+        print("--------- Character Count -------")
+        for item in sorted_chars_list:
+            char = item["char"]
+            count = item["num"]
+            
+            # Filter: only print alphabetical characters
+            if char.isalpha():
+                # Print in the required format: 'char: count'
+                print(f"{char}: {count}")
+
+        # End of Report
+        print("============= END ===============")
     else:
         print("Book text could not be retrieved.")
 
