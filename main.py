@@ -1,3 +1,4 @@
+import sys
 from stats import get_num_words, get_char_counts, sort_char_counts
 
 def get_book_text(filepath):
@@ -23,8 +24,16 @@ def get_book_text(filepath):
 
 
 def main():
-   
-    book_path = "books/frankenstein.txt"
+    # 1. Check for correct command-line arguments
+    # sys.argv is a list: [script_name, arg1, arg2, ...]
+    if len(sys.argv) != 2:
+        # If the number of arguments is not 2 (script name + one file path)
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1) # Exit with a status code indicating an error
+
+    # 2. Get the book path from the command-line argument (index 1)
+    book_path = sys.argv[1]
+    #book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
 
     if text:
